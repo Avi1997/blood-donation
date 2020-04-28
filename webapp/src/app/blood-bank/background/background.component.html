@@ -1,0 +1,88 @@
+<article class="background-img jumbotron extra-margin-top">
+        <div class="col-lg-12 mt-3">
+                <div class="row " *ngIf="isLogin() && logedInUser() !='admin'">
+                        <div class="col-lg-12 mt-5   ">
+                                <h2 class="float-right font-sm-extraless ">
+                                        Require Blood ?
+                                </h2>
+                        </div>
+                        <div class=" col-md-12">
+                                <h2 class="float-right font-sm-extraless ">
+                                        Search Blood Donors
+                                </h2>
+                        </div>
+                        <div class="col-sm-12 col-lg-12">
+                                <span class="float-right">
+                                        <a class="btn btn-danger  btn-lg  float-right 
+                                        px-xs-1 py-xs-1 py-lg-3 px-lg-5 mr-4   mt-2 font-sm-less"
+                                                routerLink="/search-blood">
+                                                Search !
+                                        </a>
+                                </span>
+                        </div>
+                </div>
+                <div class="row " *ngIf="isLogin() && logedInUser() =='admin'">
+                                <div class="col-lg-12 mt-5   ">
+                                        <h2 class="float-right font-sm-extraless ">
+                                                Hey Admin ?
+                                        </h2>
+                                </div>
+                                <div class=" col-md-12">
+                                        <h2 class="float-right font-sm-extraless ">
+                                                Answer Faq Here !!
+                                        </h2>
+                                </div>
+                                <div class="col-sm-12 col-lg-12">
+                                        <span class="float-right">
+                                                <a class="btn btn-danger  btn-lg  float-right 
+                                                px-xs-1 py-xs-1 py-lg-3 px-lg-5 mr-4   mt-2 font-sm-less"
+                                                        routerLink="/faq">
+                                                        Answer Faq 
+                                                </a>
+                                        </span>
+                                </div>
+                        </div>
+                <div class="row " *ngIf="!isLogin()">
+                        <div class="col-lg-12 mt-5   ">
+                                <h2 class="float-right font-sm-extraless ">
+                                        Want to become
+                                </h2>
+                        </div>
+                        <div class=" col-md-12">
+                                <h2 class="float-right font-sm-extraless ">
+                                        a blood donor ?
+                                </h2>
+                        </div>
+                        <div class="col-sm-12 col-lg-12">
+                                <span class="float-right">
+                                        <a class="btn btn-danger  btn-lg  float-right px-xs-1
+                                         py-xs-1 py-lg-3 px-lg-5  mr-4  mt-2 font-sm-less"
+                                                routerLink="/sign-up">
+                                                Get Register !
+                                        </a>
+                                </span>
+                        </div>
+                </div>
+                <div class="row mt-5" *ngIf="logedInUser()!='admin' ">
+                        <div class="col-lg-12 mt-3   ">
+                                <h2 class="float-right font-sm-extraless ">
+                                        Give More than Just
+                                </h2>
+                        </div>
+                        <div class=" col-md-12">
+                                <h2 class="float-right font-sm-extraless ">
+                                        Blood. Give Life!
+                                </h2>
+                        </div>
+                        <div class="col-sm-12 col-lg-12">
+                                <span class="float-right">
+                                        <a class="btn btn-danger  btn-lg  float-right px-xs-1 
+                                        py-xs-1 py-lg-3 px-lg-5 mr-4   mt-2 font-sm-less"
+                                                [routerLink]="['/blood-donation']">
+                                                Donate Blood !
+                                        </a>
+                                </span>
+                        </div>
+                </div>
+        </div>
+</article>

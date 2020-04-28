@@ -1,0 +1,153 @@
+<section class="container  extra-margin-top-tip-btn extra-margin-bottom px-5">
+        <ul class="list-group pt-5 mb-5" *ngIf="true">
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-danger bg-danger">
+                    <h3 class="text-white">Fill Details</h3>
+                </li>
+            </ul>
+        </ul>
+        <form *ngIf="true" [formGroup]="hospitalForm" (ngSubmit)="searchBlood(hospitalForm)">
+            <div class="form-row mb-2">
+                <div class="form-group col-sm-12 col-md-12 col-lg-6 " formGroupName="bloodGroups">
+                    <label for="bloodGroup" class="h5 font-weight-normal pb-2 text-danger">Blood Group *</label>
+                    <select 
+                        class="form-control" 
+                            id="bloodGroup"
+                                 formControlName="bloodGroup"
+                                    [ngClass]="[hospitalForm.get('bloodGroups').get('bloodGroup').dirty && allWarning ? 'is-valid' : '',
+                                    hospitalForm.get('bloodGroups').get('bloodGroup').touched 
+                                    && !hospitalForm.get('bloodGroups').get('bloodGroup').dirty && allWarning 
+                                    ||hospitalForm.get('bloodGroups').get('bloodGroup').errors?.required
+                                    && allWarning ? 'is-invalid' : '', 
+                                    (hospitalForm.get('bloodGroups').get('bloodGroup').valid 
+                                    || hospitalForm.get('bloodGroups').get('bloodGroup').invalid) ? 'form-control mb-1' : '']">
+                                        <option value="true" disabled [selected]="true"> Select Blood Group</option>
+                                            <option *ngFor="let bloodGroup of bloodGroups" [value]="bloodGroup" [selected]="">
+                                                  {{bloodGroup}}
+                                            </option>
+                    </select>
+                    <div class="text-danger font-weight-normal position-absolute small ml-2" 
+                        *ngIf="hospitalForm.get('bloodGroups').get('bloodGroup').touched 
+                            && !hospitalForm.get('bloodGroups').get('bloodGroup').dirty && allWarning 
+                            || hospitalForm.get('bloodGroups').get('bloodGroup').errors?.required && allWarning">
+                                Blood Group is required !
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-12 col-lg-6 mb-3 ">
+                        <label for="pincode" class="h5 font-weight-normal pb-2 text-danger">Pincode *</label>
+                        <input 
+                            type="number" 
+                                class="form-control"
+                                     id="pincode" 
+                                        name="pincode"
+                                             formControlName="pincode"
+                                                 (keyup)="lengthOfPincode()"
+                                                    [ngClass]="[pincodeFlag && hospitalForm.get('pincode').dirty && allWarning  ? 'is-valid' : ''
+                                                        ,!pincodeFlag && hospitalForm.get('pincode').dirty && allWarning 
+                                                        || hospitalForm.get('pincode').errors?.required && allWarning  ? 'is-invalid':'']">
+                        <div class="text-danger font-weight-normal position-absolute small ml-2"
+                                                *ngIf="!pincodeFlag && hospitalForm.get('pincode').dirty && allWarning 
+                                                || hospitalForm.get('pincode').errors?.required && allWarning ">
+                                                Enter  6 Digit Pincode.
+                        </div>
+                </div>
+            </div>
+            <div class="form-row mb-2">
+                <div class="form-group col-sm-12 col-md-12 col-lg-6 " formGroupName="states">
+                    <label for="state" class="h5 font-weight-normal pb-2 text-danger">State *</label>
+                    <select 
+                        class="form-control" 
+                            id="state" 
+                                formControlName="state"
+                                (change)="changeCountry($event.target.value)"
+                                [ngClass]="[hospitalForm.get('states').get('state').dirty && allWarning ? 'is-valid' : '',
+                                    hospitalForm.get('states').get('state').touched && !hospitalForm.get('states').get('state').dirty 
+                                    && allWarning || hospitalForm.get('states').get('state').errors?.required && allWarning ? 'is-invalid' : '', 
+                                    (hospitalForm.get('states').get('state').valid || hospitalForm.get('states').get('state').invalid)
+                                        && allWarning ? 'form-control mb-1' : '']">
+                                <option value="" disabled [selected]="true"> Select State </option>
+                                <option *ngFor="let state of states" [value]="state.name" [selected]="">
+                                     {{state.name}}
+                                </option>
+                    </select>
+                    <div class="text-danger font-weight-normal position-absolute small ml-2"
+                        *ngIf="hospitalForm.get('states').get('state').touched 
+                        && !hospitalForm.get('states').get('state').dirty && allWarning
+                         || hospitalForm.get('states').get('state').errors?.required && allWarning">
+                        State is required !
+                    </div>
+                </div>
+                <div class="form-group col-sm-12 col-md-12 col-lg-6 " formGroupName="cities">
+                    <label for="city" class="h5 font-weight-normal pb-2 text-danger">Area *</label>
+                    <select class="form-control" id="city" formControlName="city"
+                        [ngClass]="[hospitalForm.get('cities').get('city').dirty  && allWarning ? 'is-valid' : '',
+                                (!hospitalForm.get('states').get('state').touched
+                                 && hospitalForm.get('cities').get('city').touched) && allWarning
+                                ||(hospitalForm.get('cities').get('city').touched && hospitalForm.get('states').get('state').touched
+                                 && hospitalForm.get('states').get('state').dirty &&  allWarning 
+                                 && !hospitalForm.get('cities').get('city').dirty)|| hospitalForm.get('cities').get('city').errors?.required
+                                  && allWarning? 'is-invalid' : '', 
+                                (hospitalForm.get('cities').get('city').valid &&  allWarning  
+                                || hospitalForm.get('cities').get('city').invalid && allWarning ) ? 'form-control mb-1' : '']">
+                        <option value="" disabled [selected]="true"> Select Area</option>
+                        <option *ngFor="let city of cities" [value]="city" [selected]="false">
+                            {{city}}
+                        </option>
+                    </select>
+                    <div class="text-danger font-weight-normal position-absolute small ml-2"
+                        *ngIf="!hospitalForm.get('states').get('state').touched
+                         && hospitalForm.get('cities').get('city').touched && allWarning ">
+                        Select state first !
+                    </div>
+                    <div class="text-danger font-weight-normal position-absolute small ml-2"
+                        *ngIf="hospitalForm.get('cities').get('city').touched && hospitalForm.get('states').get('state').touched 
+                                && hospitalForm.get('states').get('state').dirty 
+                                && !hospitalForm.get('cities').get('city').dirty && allWarning 
+                                || hospitalForm.get('cities').get('city').errors?.required && allWarning">
+                        Area is required !
+                    </div>
+                </div>
+            </div>
+            <div class="form-row  mb-2 d-flex justify-content-center">
+                <button type="submit" class="btn btn-danger  mt-5 px-4 py-3 ">Search</button>
+            </div>
+        </form>
+        <div class="container">
+                <div class="container d-flex justify-content-center"
+        *ngIf="show=='table'">
+        <div class=" width-large table-responsive shadow-lg p-4 m-4">
+            <table class="table table-hover font-20">
+                <thead class=" bg-red">
+                    <tr>
+                    <th>Blood Group</th>
+                    <th>State</th>
+                    <th>Area</th>
+                    <th>Pin Code</th>
+                    <th>Contact Number</th>
+                    </tr>
+                </thead>
+                <tbody class="font-weight-normal">
+                    <tr *ngFor="let bloodAvailable of bloodAvailability">
+                    <td>{{ bloodAvailable.bloodGroup }}</td>
+                    <td>{{ bloodAvailable.state }}</td>
+                    <td>{{ bloodAvailable.area }}</td>
+                    <td>{{ bloodAvailable.pincode }}</td>
+                    <td>{{ bloodAvailable.contactNumber}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="container d-flex justify-content-center border"
+        *ngIf="show=='request'">
+        <div class="well-light width-large shadow-lg p-4 m-4">
+            <h6 class="text-red font-weight-bold">There is <strong>No Blood Available</strong> for above requirement !!</h6>
+            <h3 class="text-dark font-weight-bold">Want to Post the Blood Requirement ??</h3>
+            <button type="submit" 
+                routerLink="/blood-requirement"
+                class="btn btn-danger font-weight-bold font-20">
+                Post Requirement</button>
+        </div>
+    </div>
+        </div>
+    </section>

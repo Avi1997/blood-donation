@@ -1,0 +1,125 @@
+<section class="extra-margin-top-hospital container">
+    <ul class="list-group pt-2" >
+        <ul class="list-group mb-4">
+            <li class="list-group-item list-group-item-danger bg-danger">
+                <h3 class="text-white">Hospital Details</h3>
+            </li>
+        </ul>
+    </ul>
+    <ul class="list-group pt-2 mt-4" *ngIf="sucessMsg">
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-danger bg-success">
+                <h3 class="text-white">Slot booked successfully, you are going to save a life</h3>
+            </li>
+        </ul>
+    </ul>   
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="slotTakenFlag">
+        <strong>Sorry</strong>, please try a different slot
+        <button type="button" class="close" data-dismiss="alert" (click) ="slotBookedFlag()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    <form *ngIf="!sucessMsg" [formGroup]="hospitalForm" (ngSubmit)="checkForSlot(hospitalForm)" class="mt-3">
+        <div class="form-row mb-2">
+            <div class="col-sm-12 col-md-12 col-lg-6 mb-3 ">
+                <label for="hospitalName" class="h5 font-weight-normal pb-2 text-danger">Hospital Name *</label>
+                <input 
+                    type="text" 
+                        class="form-control"
+                             id="hospitalName"
+                                 name="hospitalName"
+                                     (keyup)="checkLength(hospitalForm.get('hospitalName').value)"
+                                         placeholder="Enter Hospital Name .."
+                                            formControlName="hospitalName"
+                                                 [ngClass]="[!hospitalNameFlag && hospitalForm.get('hospitalName').dirty   ? 'is-valid' : ''
+                                                    ,hospitalNameFlag && hospitalForm.get('hospitalName').dirty 
+                                                    ||  hospitalForm.get('hospitalName').errors?.required && hospitalForm.get('hospitalName').dirty 
+                                                     ? 'is-invalid':'']">
+                                        <div class="text-danger font-weight-normal position-absolute small ml-2 mb-2"
+                                                *ngIf="hospitalForm.get('hospitalName').errors?.required && hospitalForm.get('hospitalName').dirty ">
+                                                Hospital Name Required 
+                                        </div>
+                                            <div class="text-danger font-weight-normal position-absolute small ml-2"
+                                                *ngIf=" hospitalNameFlag ">
+                                                Hospital Length Must be smaller than 15
+                                            </div>
+            </div>
+           
+            <div class="col-sm-12 col-md-12 col-lg-6 ">
+                <label for="city" class="h5 font-weight-normal pb-2 text-danger">City *</label>
+                <input 
+                    type="text"
+                         class="form-control"
+                             id="city"
+                                 name="city"
+                                     formControlName="city" 
+                                         (keyup)="checkCityLength(hospitalForm.get('city').value)" 
+                                            [ngClass]="[!cityFlag && hospitalForm.get('city').dirty   ? 'is-valid' : ''
+                                                        ,cityFlag && hospitalForm.get('city').dirty 
+                                                        ||hospitalForm.get('city').errors?.required && hospitalForm.get('city').dirty 
+                                                     ?'is-invalid':'']">
+                <div class="text-danger font-weight-normal position-absolute small ml-2 mb-2"
+                     *ngIf="hospitalForm.get('city').errors?.required && hospitalForm.get('city').dirty ">
+                     City is Required 
+                </div>
+                    <div class="text-danger font-weight-normal position-absolute small ml-2"
+                     *ngIf=" cityFlag ">
+                     City Length Must be smaller than 15
+                    </div>
+            </div>
+        </div>
+        <div class="form-row mb-2">
+            <div class="form-group col-sm-12 col-md-12 col-lg-6 ">
+                <label for="dateOfLaunch" class="h5 font-weight-normal text-danger pb-2">
+                    Date
+                </label>
+                <input 
+                    type="text" 
+                        bsDatepicker 
+                            id="dateOfLaunch" 
+                                class="form-control" 
+                                    width="100%"
+                                         formControlName="date"
+                                               [ngClass]="[hospitalForm.get('date').dirty  
+                                                         && hospitalForm.get('date').touched ? 'is-valid' : ''
+                                                          , hospitalForm.get('date').errors?.required && hospitalForm.get('date').touched  ? 'is-invalid':'']" />             
+                <div class="small text-danger position-absolute ml-2"
+                    *ngIf="hospitalForm.get('date').errors?.required && hospitalForm.get('date').touched">
+                    Date can't be Empty
+                </div>
+            </div>
+            <div class="form-group col-sm-12 col-md-12 col-lg-6 " formGroupName="timeGroup">
+                <label for="city" class="h5 font-weight-normal pb-2 text-danger">Time *</label>
+                <select 
+                    class="form-control" 
+                        id="city" 
+                            formControlName="time"  
+                             [ngClass]="[hospitalForm.get('timeGroup').get('time').dirty  ? 'is-valid' : '',
+                                hospitalForm.get('timeGroup').get('time').touched 
+                                && !hospitalForm.get('timeGroup').get('time').dirty  
+                                ||hospitalForm.get('timeGroup').get('time').errors?.required || slotTakenFlag
+                                ? 'is-invalid' : '', 
+                                (hospitalForm.get('timeGroup').get('time').valid 
+                                || hospitalForm.get('timeGroup').get('time').invalid) ? 'form-control mb-1' : '']">>
+                    <option value="true" disabled [selected]="true"> Select Time</option>
+                    <option *ngFor="let time of timeGroup" [value]="time" [selected]="false">
+                        {{time}}
+                    </option>
+                </select>
+                <div class="small text-danger position-absolute ml-2"
+                        *ngIf=" hospitalForm.get('timeGroup').get('time').touched 
+                        && !hospitalForm.get('timeGroup').get('time').dirty  
+                        ||hospitalForm.get('timeGroup').get('time').errors?.required">
+                        Please select the Time-slot.
+                </div>
+             <div class="small text-danger position-absolute ml-2"
+                *ngIf=" slotTakenFlag">
+                        Time-slot not Available.
+            </div>
+            </div>
+        </div>
+        <div class="form-row  mb-2 d-flex justify-content-center">
+            <button type="submit" class="btn btn-danger  mt-5 px-4 py-3 ">Book Appointment</button>
+        </div>
+    </form>
+</section>

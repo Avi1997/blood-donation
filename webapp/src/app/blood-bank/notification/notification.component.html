@@ -1,0 +1,57 @@
+<div id="accordion" class=" container extra-margin-top-hospital extra-margin-bottom ">
+        <div class="card  border-0 ">
+            <div class="card-header bg-danger" id="headingOne">
+                <ul class="nav nav-tabs card-header-tabs">
+                  <li class="nav-item " *ngIf="notificationFlag">
+                    <a class="nav-link collapsed pointer font-weight-bold text-white"  data-toggle="collapse" data-target="#collapseOne" (click)="flagTrue()" >
+                        Notification
+                    </a>
+                  </li>
+                  <li class="nav-item " *ngIf="!notificationFlag">
+                      <a class="nav-link disabled active font-weight-bold text-danger " >Notification</a>
+                    </li>
+                  <li class="nav-item  "
+                  *ngIf="!notificationFlag">
+                    <a class="nav-link font-weight-bold text-white  collapsed pointer" data-toggle="collapse" data-target="#collapseTwo" (click)="flagtruesecond()"  >
+                         History
+                    </a>
+                  </li>
+                  <li class="nav-item" *ngIf="notificationFlag">
+                      <a class="nav-link active disabled font-weight-bold text-danger" > History</a>
+                    </li>
+                </ul>
+              </div>
+          
+      
+          <div id="collapseOne" class="collapse show border-0" aria-labelledby="headingOne"  data-parent="#accordion">
+            <div class="card-body border-0">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-action bg-danger text-white font-weight-bold" *ngIf="emptyNotification">
+                        
+                       <div class="alert alert-warning container"><i class="material-icons text-warning">clear</i>  No Notification</div>
+                      </li>
+                    <li class="list-group-item list-group-item-action bg-danger text-white font-weight-bold" *ngFor=" let notification of notifications">
+                      <i class="material-icons text-warning">new_releases</i>   {{notification.notification}} 
+                      <button class="btn btn-link float-right text-warning font-weight-bold" (click) ="markAsRead(notification)" >mark as read</button>
+                    </li>
+                  </ul>
+            </div>
+          </div>
+        <div class="card border-0">
+          <div id="collapseTwo" class="collapse border-0 container" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body border-0">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action bg-danger text-white font-weight-bold" *ngIf="emptyNotificationHistory">                        
+                       <div class="alert alert-warning"><i class="material-icons text-warning">clear</i> No Notification History</div>
+                      </li>
+                    <li class="list-group-item border-buttom  border-danger list-group-item-action font-weight-bold text-danger" *ngFor=" let history of notificationsHistory">
+                      <i class="material-icons">notification_important</i>  {{history.notification}} 
+                      <button class="btn btn-link float-right" (click)="removeNotification(history)">remove</button>
+                    </li>
+                  </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+    

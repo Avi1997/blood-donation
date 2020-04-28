@@ -1,0 +1,118 @@
+.nav-link{
+	border-bottom:solid 3px #F8F9F9 ;
+}
+.nav-link:hover{
+	border-bottom:solid 3px #F22C2C ;
+}
+.background-img {
+	background-image: url("jumotron.jpg");
+	background-repeat: no-repeat ;
+}
+.material-icons {
+	vertical-align: middle;
+}
+.outline-none:focus {
+	outline: none;
+}
+.color-nav {
+	background-color: #F8F9F9;
+}
+.btn-danger{
+	color: #f8f8f8;
+}
+.btn-danger:hover{
+	background-color:#F8F9F9;
+	color: #F22C2C;
+}
+.bg-faq{
+    background-image:url("https://media.istockphoto.com/photos/red-background-picture-id181091938?k=6&m=181091938&s=612x612&w=0&h=cBznyVhvxoKJvJzA71QfAe7TGfqyy0x9uj1oQ_1GAAw=") ;
+    background-size: 100% 100%;
+}
+
+.bs-datepicker-head,
+.bs-datepicker-head, .bs-datepicker button:active,
+.bs-datepicker-body table td span.selected,
+.bs-datepicker-body table td.selected span,
+.bs-datepicker-body table td span[class*="select-"]:after,
+.bs-datepicker-body table td[class*="select-"] span:after,
+.bs-datepicker-body table td.active-week span:hover 
+{
+  background-color: #F22C2C !important; 
+}
+
+.bs-datepicker-body table td.week span 
+{
+  color:#F22C2C !important; 
+}
+@media screen and (max-width:826px){
+	.extra-margin-top {
+		margin-top: 50px;
+	}
+	.extra-margin-top-tip-btn {
+		margin-top: 50px;
+	}
+	.extra-margin-top-btn{
+		margin-top: 8px;
+	}
+	.extra-margin-top-hospital{
+		margin-top: 95px;
+	}
+	
+	.extra-margin-bottom {
+		margin-bottom: 50px;
+	}
+	.jumbotron {		
+		background-position: center;
+		background-size: 100% 100%;
+		border-radius: 0;
+		height:400px;
+	}
+
+}
+
+@media screen and (min-width:826px){
+	.extra-margin-top {
+		margin-top: 68px;
+	}
+	.extra-margin-top-tip-btn {
+		margin-top: 140px;
+	}
+	.extra-margin-top-hospital{
+		margin-top: 110px;
+	}
+	.extra-margin-bottom {
+		margin-bottom: 95px;
+	}
+	.jumbotron {
+		background-color: #cccccc;
+		background-position: center;
+		background-size: 100% 100% ;
+		border-radius: 0;
+		height:800px;
+	}
+}
+
+
+
+ 
+@media screen and (max-width:769px){
+	.font-sm-less{
+		font-size: 10px;
+	}
+	.font-sm-extraless{
+	  font-size: 18px;
+  }
+  .change-height{
+	  height: 320px;
+  }
+	
+}
+@media screen and (min-width:769px){
+  .font-sm-less{
+	  font-size: 14px;
+  }
+ 
+.change-height{
+	height: 400px;
+}
+}

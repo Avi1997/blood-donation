@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg shadow  navbar-inverse  color-nav fixed-top   px-3 py-4" id="header">
+    <a routerLink="" class="navbar-brand text-danger  font-weight-bold"><i
+            class="material-icons mr-2 pb-1">opacity</i>Blood Bank</a>
+    <button class="navbar-toggler outline-none border border-0" (click) ="dropDownButtonClick()" type="button" data-toggle="collapse"
+        data-target="#nav-list">
+        <i class="material-icons mr-2  text-danger pl-3" >{{navbarIcon}}</i>
+    </button>
+    <div class="navbar-collapse collapse " id="nav-list">
+        <ul class="navbar-nav  ml-auto ">
+            <li class="nav-item font-weight-bold" *ngIf="true">
+                       <a  routerLink="" class="nav-link text-danger ">Home</a>
+            </li>            
+            <li class="nav-item" *ngIf=" isLogin()">
+                <span class="nav-link font-weight-bold text-danger"><i
+                        class="material-icons text-danger  mr-1">person</i> {{user}}</span>
+
+            </li>
+            <li class="nav-item" *ngIf="!isLogin()">
+                <a class="nav-link text-danger font-weight-bold  " routerLink="/login">Log In</a>
+            </li>
+            <li class="nav-item" *ngIf="!isLogin()">
+                    <a class="nav-link text-danger font-weight-bold "  routerLink="/sign-up">Sign Up</a>
+                </li>            
+           
+            <li class="nav-item" *ngIf=" isLogin() && logedInUser() !='admin'">
+                    <a class="nav-link text-danger font-weight-bold "  routerLink="/faq">FAQ</a>
+                </li>
+            <li class="nav-item font-weight-bold" *ngIf="isLogin() && logedInUser() != 'admin' " >
+                       <a class="nav-link text-danger mb-2 " routerLink="/notification">Notification</a>
+            </li>
+            <li class="nav-item font-weight-bold" *ngIf="isLogin()">
+                <a class="nav-link text-danger mb-2 " (click)="logout()" routerLink="">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<footer class="navbar color-nav  fixed-bottom d-flex justify-content-center " id="footer">
+    <span class="navbar-brand text-danger pl-3 ">Copyright 2019</span>
+</footer>

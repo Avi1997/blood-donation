@@ -1,0 +1,93 @@
+<app-background></app-background>
+<div class="container extra-margin-bottom" *ngIf="logedInUser() !='admin'">
+        <div class="row">
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="card border-0">
+                                <div class="card-body ">
+                                        <img src="https://d2gg9evh47fn9z.cloudfront.net/800px_COLOURBOX7081330.jpg"
+                                                class="card-img change-height">
+                                        <div class="d-flex justify-content-center mt-4">
+                                                <button class="  mt-2 btn btn-danger font-weight-bold   p-3 pr-4" *ngIf="true"
+                                                [routerLink]="['/feedback']">
+                                                Share now
+                                                </button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="card border-0">
+                                <div class="card-body ">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMmh-FdUZdaV2vyfopWXhjj1a-VVGgQmCUl9xqInK36ewQYHEo7w&s"
+                                                class="card-img change-height">
+                                        <div class="d-flex justify-content-center mt-4 " *ngIf="!isLogin()">
+                                                <button class=" btn btn-danger font-weight-bold   p-3 pr-4"
+                                                        [routerLink]="['/search-blood']">
+                                                        <i class="material-icons pr-2 pb-1">
+                                                                invert_colors
+                                                        </i>
+                                                        Search Blood
+                                                </button>
+                                        </div>
+                                      
+                                </div>
+                        </div>
+                </div>
+                <div class="col-sm-12 col-md-4 col-lg-4">
+                        <div class="card border-0">
+                                <div class="card-body ">
+                                        <div class="color-nav p-3 change-height">
+                                                <h3 class="card-text text-danger font-weight-bold mb-2">
+                                                        Quick Tips
+                                                </h3>
+                                                <p >Most humans are in the ABO blood group. The ABO group has four
+                                                        categories namely</p>
+                                                <p >1) A group 2) B group 3) O group and 4) AB group</p>
+                                                <p >In the Rh- group, either the individual is said to be Rh- Negative or
+                                                        Rh- Positive.</p>
+                                        </div>
+                                        <div class="d-flex justify-content-center mt-4">
+                                                <button class="  btn btn-danger font-weight-bold  p-3 pr-4"
+                                                        (click)="goTips()">
+                                                        <i class="material-icons pr-2 pb-1">
+                                                                info
+                                                        </i>
+                                                        more Tips
+                                                </button>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+        </div>
+</div>
+<div class="container px-0" *ngIf="logedInUser() !='admin'">
+        <div class="alert bg-danger text-white m-2">
+               <h3>Blood Requirement</h3> 
+        </div>
+</div>
+                        <div class=" container table-responsive-sm overflow-auto " style="height:200px" *ngIf="logedInUser() !='admin'">
+                            <table class="table ">
+                                <thead class="bg-danger text-white">
+                                  <tr>
+                                    <th scope="col" >Blood Group</th>
+                                    <th scope="col">State</th>
+                                    <th scope="col">City</th>
+                                    <th scope="col">Pincode</th> 
+                                    <th scope="col">Mobile Number</th>
+                                    <th scope="col"></th>
+                                  </tr>
+                                </thead>
+                            <tbody *ngFor="let req of bloodAvailable">
+                              <tr>
+                                        <td>{{req.bloodGroup}}</td>
+                                        <td>{{req.state}}</td>
+                                        <td>{{req.area}}</td>
+                                        <td>{{req.pincode}}</td>
+                                        <td>{{req.contactNumber}}</td>
+                                <td><button class="btn btn-danger float-right " [routerLink]="['/blood-donation']">Donate</button></td>
+                              </tr>     
+                            </tbody>
+                          </table>
+                        </div>
+<app-blood-count *ngIf="isLogin() && logedInUser() == 'admin'"></app-blood-count>
+<app-show-feedback *ngIf="logedInUser() !='admin'"></app-show-feedback>

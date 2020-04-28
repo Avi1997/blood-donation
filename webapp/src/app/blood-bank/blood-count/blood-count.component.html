@@ -1,0 +1,29 @@
+<article class="extra-margin-top-hospital extra-margin-bottom">
+        <div class="d-flex justify-content-center">
+            <div class="well-light margin-small table-responsive  p-4 m-4">
+                <div class=" m-3">
+                    <h1 class="text-danger font-weight-bold">Blood Group Details</h1>
+                </div>
+                <div class="table-scroll">
+                <table class="table table-hover font-20">
+                    <thead class=" text-white bg-danger">
+                        <tr>
+                        <th>BloodGroup</th>
+                        <th>Unit-Left</th>
+                        <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="font-weight-bold">
+                        <tr *ngFor="let bloodinfo of bloodinformation" class="border-0">
+                        <td>{{ bloodinfo.bloodGroup }}</td>
+                        <td>{{ bloodinfo.count }}</td>
+                        <td class="float-right"><button class="btn btn-link font-weight-bold" (click)="sendNotification(bloodinfo.bloodGroup)" *ngIf="notificationSentFlag != bloodinfo.bloodGroup ">Send Notification</button>
+                        <div  *ngIf="notificationSentFlag == bloodinfo.bloodGroup "> <span class="badge badge-success">Notification <i class="material-icons text-white">done_all</i></span></div>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+                </div>
+            </div>
+        </div>
+    </article>
